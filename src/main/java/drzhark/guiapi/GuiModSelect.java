@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.guiapi;
 
 import drzhark.guiapi.widget.WidgetClassicTwocolumn;

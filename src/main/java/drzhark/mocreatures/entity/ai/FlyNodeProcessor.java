@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.ai;
 
 import net.minecraft.block.material.Material;
@@ -35,7 +38,8 @@ public class FlyNodeProcessor extends NodeProcessor {
 
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-            PathPoint pathpoint = this.getSafePoint(currentPoint.x + enumfacing.getFrontOffsetX(), currentPoint.y + enumfacing.getFrontOffsetY(), currentPoint.z + enumfacing.getFrontOffsetZ());
+            // Todo: this could be wrong!
+            PathPoint pathpoint = this.getSafePoint(currentPoint.x + enumfacing.getXOffset(), currentPoint.y + enumfacing.getYOffset(), currentPoint.z + enumfacing.getZOffset());
 
             if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(targetPoint) < maxDistance)
             {

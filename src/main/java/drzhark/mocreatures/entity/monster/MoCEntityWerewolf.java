@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.monster;
 
 import drzhark.mocreatures.MoCTools;
@@ -173,17 +176,17 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 }
                 if (stack.getItem() instanceof ItemSword) {
                     String swordMaterial = ((ItemSword) stack.getItem()).getToolMaterialName();
-                    String swordName = ((ItemSword) stack.getItem()).getUnlocalizedName();
+                    String swordName = ((ItemSword) stack.getItem()).getTranslationKey();
                     if (swordMaterial.toLowerCase().contains("silver") || swordName.toLowerCase().contains("silver")) {
                         i = ((ItemSword) stack.getItem()).getAttackDamage() * 3F;
                     }
                 } else if (stack.getItem() instanceof ItemTool) {
                     String toolMaterial = ((ItemTool) stack.getItem()).getToolMaterialName();
-                    String toolName = ((ItemTool) stack.getItem()).getUnlocalizedName();
+                    String toolName = ((ItemTool) stack.getItem()).getTranslationKey();
                     if (toolMaterial.toLowerCase().contains("silver") || toolName.toLowerCase().contains("silver")) {
                         i = ((ItemSword) stack.getItem()).getAttackDamage() * 2F;
                     }
-                } else if (stack.getItem().getUnlocalizedName().toLowerCase().contains("silver")) {
+                } else if (stack.getItem().getTranslationKey().toLowerCase().contains("silver")) {
                     i = 6F;
                 }
             }
@@ -342,7 +345,7 @@ public class MoCEntityWerewolf extends MoCEntityMob {
             }
             //so entity doesn't despawn that often
             if (this.rand.nextInt(300) == 0) {
-                this.idleTime -= 100 * this.world.getDifficulty().getDifficultyId();
+                this.idleTime -= 100 * this.world.getDifficulty().getId();
                 if (this.idleTime  < 0) {
                     this.idleTime  = 0;
                 }

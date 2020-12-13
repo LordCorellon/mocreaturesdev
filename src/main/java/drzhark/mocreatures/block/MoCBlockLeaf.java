@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.block;
 
 import drzhark.mocreatures.MoCreatures;
@@ -24,7 +27,7 @@ public class MoCBlockLeaf extends MoCBlock {
         super(name, Material.LEAVES);
         setTickRandomly(true);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.setSoundType(SoundType.PLANT);
     }
 

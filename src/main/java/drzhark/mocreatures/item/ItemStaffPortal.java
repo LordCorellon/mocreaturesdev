@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.item;
 
 import drzhark.mocreatures.MoCreatures;
@@ -73,13 +76,13 @@ public class ItemStaffPortal extends MoCItem {
                 this.portalPosZ = (int) player.posZ;
                 writeToNBT(nbtcompound);
 
-                BlockPos var2 = playerMP.mcServer.getWorld(MoCreatures.WyvernLairDimensionID).getSpawnCoordinate();
+                BlockPos var2 = playerMP.getServer().getWorld(MoCreatures.WyvernLairDimensionID).getSpawnCoordinate();
 
                 if (var2 != null) {
                     playerMP.connection.setPlayerLocation(var2.getX(), var2.getY(), var2.getZ(), 0.0F, 0.0F);
                 }
-                playerMP.mcServer.getPlayerList().transferPlayerToDimension(playerMP, MoCreatures.WyvernLairDimensionID,
-                        new MoCDirectTeleporter(playerMP.mcServer.getWorld(MoCreatures.WyvernLairDimensionID)));
+                playerMP.getServer().getPlayerList().transferPlayerToDimension(playerMP, MoCreatures.WyvernLairDimensionID,
+                        new MoCDirectTeleporter(playerMP.getServer().getWorld(MoCreatures.WyvernLairDimensionID)));
                 stack.damageItem(1, player);
                 return EnumActionResult.SUCCESS;
             } else {
@@ -92,12 +95,12 @@ public class ItemStaffPortal extends MoCItem {
                 boolean foundSpawn = false;
                 if (this.portalPosX == 0 && this.portalPosY == 0 && this.portalPosZ == 0) //dummy staff
                 {
-                    BlockPos var2 = playerMP.mcServer.getWorld(0).getSpawnPoint();
+                    BlockPos var2 = playerMP.getServer().getWorld(0).getSpawnPoint();
 
                     if (var2 != null) {
                         for (int i1 = 0; i1 < 60; i1++) {
-                            IBlockState blockstate = playerMP.mcServer.getWorld(0).getBlockState(pos.add(0, i1, 0));
-                            IBlockState blockstate1 = playerMP.mcServer.getWorld(0).getBlockState(pos.add(0, i1 + 1, 0));
+                            IBlockState blockstate = playerMP.getServer().getWorld(0).getBlockState(pos.add(0, i1, 0));
+                            IBlockState blockstate1 = playerMP.getServer().getWorld(0).getBlockState(pos.add(0, i1 + 1, 0));
 
                             if (blockstate.getBlock() == Blocks.AIR && blockstate1.getBlock() == Blocks.AIR) {
                                 playerMP.connection.setPlayerLocation(var2.getX(), (double) var2.getY() + i1 + 1, var2.getZ(), 0.0F,
@@ -127,8 +130,8 @@ public class ItemStaffPortal extends MoCItem {
                 }
 
                 stack.damageItem(1, player);
-                playerMP.mcServer.getPlayerList().transferPlayerToDimension(playerMP, this.portalDimension,
-                        new MoCDirectTeleporter(playerMP.mcServer.getWorld(0)));
+                playerMP.getServer().getPlayerList().transferPlayerToDimension(playerMP, this.portalDimension,
+                        new MoCDirectTeleporter(playerMP.getServer().getWorld(0)));
                 return EnumActionResult.SUCCESS;
             }
         }

@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.datafixer;
 
 import net.minecraft.nbt.NBTTagCompound;

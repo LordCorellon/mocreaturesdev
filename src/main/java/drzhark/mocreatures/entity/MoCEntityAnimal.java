@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity;
 
 import drzhark.mocreatures.MoCTools;
@@ -596,20 +599,38 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
         if (MoCreatures.entityMap.get(this.getClass()).getFrequency() <= 0) {
             return false;
         }
+        boolean willSpawn = false;
+        boolean debug = false;
+
         if (this.world.provider.getDimensionType().getId() != 0) {
-            return getCanSpawnHereCreature() && getCanSpawnHereLiving();
+            willSpawn = getCanSpawnHereCreature() && getCanSpawnHereLiving();
+            if (willSpawn && debug)
+                System.out.println("Animal 1: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+            return willSpawn;
         }
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
 
         String s = MoCTools.biomeName(this.world, pos);
 
         if (s.toLowerCase().contains("jungle")) {
-            return getCanSpawnHereJungle();
+
+            willSpawn = getCanSpawnHereJungle();
+            if (willSpawn && debug)
+                System.out.println("Animal 2: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+            return willSpawn;
         }
         if (s.equals("WyvernBiome")) {
-            return getCanSpawnHereMoCBiome();
+
+            willSpawn = getCanSpawnHereMoCBiome();
+            if (willSpawn && debug)
+                System.out.println("Animal 3: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+            return willSpawn;
         }
-        return super.getCanSpawnHere();
+
+        willSpawn = super.getCanSpawnHere();
+        if (willSpawn && debug)
+            System.out.println("Animal 4: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+        return willSpawn;
     }
 
     private boolean getCanSpawnHereMoCBiome() {

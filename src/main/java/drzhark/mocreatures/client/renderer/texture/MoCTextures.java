@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.client.renderer.texture;
 
 import com.google.common.collect.Maps;

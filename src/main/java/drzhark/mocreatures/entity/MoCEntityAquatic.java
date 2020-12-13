@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity;
 
 import drzhark.mocreatures.MoCTools;
@@ -615,7 +618,11 @@ public abstract class MoCEntityAquatic extends EntityCreature implements IMoCEnt
      */
     @Override
     public boolean getCanSpawnHere() {
-        return MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && this.world.checkNoEntityCollision(this.getEntityBoundingBox());
+        boolean willSpawn = MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && this.world.checkNoEntityCollision(this.getEntityBoundingBox());
+        boolean debug = false;
+        if (willSpawn && debug)
+            System.out.println("Aquatic: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " spawned: " + willSpawn + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+        return willSpawn;
     }
 
     

@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.monster;
 
 import drzhark.mocreatures.entity.MoCEntityMob;
@@ -43,7 +46,7 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE)
-                .setBaseValue(this.world.getDifficulty().getDifficultyId() == 1 ? 2.0D : 3.0D); // setAttackStrength
+                .setBaseValue(this.world.getDifficulty().getId() == 1 ? 2.0D : 3.0D); // setAttackStrength
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
     }

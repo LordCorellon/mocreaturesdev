@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 // todo freeze for some time if close to flower
 // attack player if player attacks hive?
 // hive block (honey, bee spawner)
@@ -69,7 +72,7 @@ public class MoCEntityBee extends MoCEntityInsect
             Entity entity = damagesource.getTrueSource();
             if (entity instanceof EntityLivingBase) {
                 EntityLivingBase entityliving = (EntityLivingBase) entity;
-                if ((entity != this) && (this.world.getDifficulty().getDifficultyId() > 0)) {
+                if ((entity != this) && (this.world.getDifficulty().getId() > 0)) {
                     setAttackTarget(entityliving);
                 }
                 return true;

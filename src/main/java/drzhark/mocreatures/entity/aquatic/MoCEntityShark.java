@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.entity.MoCEntityTameableAquatic;
@@ -46,7 +49,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
 
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float i) {
-        if (super.attackEntityFrom(damagesource, i) && (this.world.getDifficulty().getDifficultyId() > 0)) {
+        if (super.attackEntityFrom(damagesource, i) && (this.world.getDifficulty().getId() > 0)) {
             Entity entity = damagesource.getTrueSource();
             if (this.isRidingOrBeingRiddenBy(entity)) {
                 return true;
@@ -70,7 +73,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
             for (int l = 0; l < j; l++) {
                 entityDropItem(new ItemStack(MoCItems.sharkteeth, 1, 0), 0.0F);
             }
-        } else if ((this.world.getDifficulty().getDifficultyId() > 0) && (getEdad() > 150)) {
+        } else if ((this.world.getDifficulty().getId() > 0) && (getEdad() > 150)) {
             int k = this.rand.nextInt(3);
             for (int i1 = 0; i1 < k; i1++) {
                 entityDropItem(new ItemStack(MoCItems.mocegg, 1, 11), 0.0F);
@@ -79,7 +82,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     }
 
     /*protected Entity findPlayerToAttack() {
-        if ((this.world.getDifficulty().getDifficultyId() > 0) && (getEdad() >= 100)) {
+        if ((this.world.getDifficulty().getId() > 0) && (getEdad() >= 100)) {
             EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 16D);
             if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) {
                 return entityplayer;

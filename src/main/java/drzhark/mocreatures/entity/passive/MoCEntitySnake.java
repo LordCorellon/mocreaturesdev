@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.passive;
 
 import drzhark.mocreatures.MoCTools;
@@ -354,7 +357,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             this.rotationYaw = this.getRidingEntity().rotationYaw;// -90F;
         }
 
-        if (this.world.getDifficulty().getDifficultyId() > 0 && getNearPlayer() && !getIsTamed() && isNotScared()) {
+        if (this.world.getDifficulty().getId() > 0 && getNearPlayer() && !getIsTamed() && isNotScared()) {
 
             this.hissCounter++;
 

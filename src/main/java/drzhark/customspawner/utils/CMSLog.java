@@ -1,30 +1,30 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.customspawner.utils;
 
-import drzhark.customspawner.CustomSpawner;
 import drzhark.customspawner.environment.EnvironmentSettings;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
-import org.apachev1.log4j.FileAppender;
-import org.apachev1.log4j.Logger;
-import org.apachev1.log4j.SimpleLayout;
-
-import java.io.File;
-import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CMSLog {
 
     public final Logger logger;
 
     public CMSLog(String environment) {
-        this.logger = Logger.getLogger(environment);
-        SimpleLayout layout = new SimpleLayout();
+        this.logger = LogManager.getLogger();
+
+        // Todo: fix this up.
+        /*PatternLayout layout = new PatternLayout();
         FileAppender appender = null;
         try {
             appender =
-                    new FileAppender(layout, CustomSpawner.ROOT.getPath() + File.separator + "logs" + File.separator + environment + ".log", false);
+                    new FileAppender(logs, CustomSpawner.ROOT.getPath() + File.separator + "logs" + File.separator + environment + ".log", false);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.logger.addAppender(appender);
+        this.logger.addAppender(appender); */
         this.logger.info("Logger initialized for environment " + environment);
     }
 

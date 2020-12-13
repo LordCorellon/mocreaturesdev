@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.block;
 
 import net.minecraft.block.Block;
@@ -10,7 +13,7 @@ public class MultiItemBlock extends ItemMultiTexture {
         super(block, block, new ItemMultiTexture.Mapper() {
 
             public String apply(ItemStack stack) {
-                return MoCBlock.EnumType.byMetadata(stack.getMetadata()).getUnlocalizedName();
+                return MoCBlock.EnumType.byMetadata(stack.getMetadata()).getTranlationKey();
             }
         });
         setHasSubtypes(true);
@@ -20,5 +23,4 @@ public class MultiItemBlock extends ItemMultiTexture {
     public int getMetadata(int damageValue) {
         return damageValue;
     }
-
 }

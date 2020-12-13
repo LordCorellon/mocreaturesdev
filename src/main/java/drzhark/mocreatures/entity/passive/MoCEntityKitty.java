@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.passive;
 
 import drzhark.mocreatures.MoCTools;
@@ -267,7 +270,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
     @Override
     protected Entity findPlayerToAttack() {
-        if ((this.world.getDifficulty().getDifficultyId() > 0) && (getKittyState() != 8) && (getKittyState() != 10) && (getKittyState() != 15)
+        if ((this.world.getDifficulty().getId() > 0) && (getKittyState() != 8) && (getKittyState() != 10) && (getKittyState() != 15)
                 && (getKittyState() != 18) && (getKittyState() != 19) && !isMovementCeased() && getIsHungry()) {
             EntityLivingBase entityliving = getClosestTarget(this, 10D);
             return entityliving;

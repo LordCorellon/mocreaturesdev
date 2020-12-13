@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.client;
 
 import drzhark.mocreatures.init.MoCItems;
@@ -16,7 +19,7 @@ public class MoCCreativeTabs extends CreativeTabs {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ItemStack getTabIconItem() {
+    public ItemStack createIcon() {
         return new ItemStack(MoCItems.amuletfairyfull, 1);
     }
 

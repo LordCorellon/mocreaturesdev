@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.client.renderer.entity;
 
 import drzhark.mocreatures.entity.passive.MoCEntityBird;

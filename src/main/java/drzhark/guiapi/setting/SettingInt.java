@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.guiapi.setting;
 
 import drzhark.guiapi.ModSettings;

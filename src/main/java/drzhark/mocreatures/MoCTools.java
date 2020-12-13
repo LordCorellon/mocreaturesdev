@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures;
 
 import drzhark.mocreatures.entity.IMoCEntity;
@@ -74,6 +77,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import java.lang.reflect.Field;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -274,7 +281,7 @@ public class MoCTools {
 
                     if (blockstate.getBlock() != Blocks.AIR) {
                         String nameToCheck = "";
-                        nameToCheck = blockstate.getBlock().getUnlocalizedName();//.getBlockName();
+                        nameToCheck = blockstate.getBlock().getTranslationKey();//.getBlockName();
                         if (nameToCheck != null && nameToCheck != "") {
                             if (nameToCheck.equals(blockName)) {
                                 return true;
@@ -624,7 +631,21 @@ public class MoCTools {
         if (Biome == null) {
             return null;
         } else {
-            return Biome.biomeName;
+            String biomeName = "";
+            MinecraftServer m = FMLCommonHandler.instance().getMinecraftServerInstance();
+            if (m.isDedicatedServer()) {
+                Field f = ObfuscationReflectionHelper.findField(Biome.class, "field_76791_y");
+                f.setAccessible(true);
+                try {
+                    biomeName = (String) f.get(Biome);
+                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalAccessException e) {
+                    }
+                return biomeName;
+            } else {
+                return Biome.getBiomeName();
+            }
+            //return Biome.getBiomeName();
         }
     }
 
@@ -919,7 +940,7 @@ public class MoCTools {
                     // pass explosion instance to fix BlockTNT NPE's
                     Explosion explosion =
                             new Explosion(entity.world, null, chunkposition.getX(), chunkposition.getY(), chunkposition.getZ(), 3f, false, false);
-                    blockstate.getBlock().onBlockDestroyedByExplosion(entity.world, chunkposition, explosion);
+                    blockstate.getBlock().onBlockExploded(entity.world, chunkposition, explosion);
                 }
             }
         }

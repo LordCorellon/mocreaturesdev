@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 // TODO
 // open mouth animation (done)
 // eating animation

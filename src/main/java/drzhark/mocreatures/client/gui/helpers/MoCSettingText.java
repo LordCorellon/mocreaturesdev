@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.client.gui.helpers;
 
 import drzhark.guiapi.setting.SettingText;

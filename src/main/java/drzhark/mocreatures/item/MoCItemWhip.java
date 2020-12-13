@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.item;
 
 import drzhark.mocreatures.MoCTools;
@@ -62,7 +65,7 @@ public class MoCItemWhip extends MoCItem {
                 if (entity instanceof MoCEntityAnimal) {
                     MoCEntityAnimal animal = (MoCEntityAnimal) entity;
                     if (MoCreatures.proxy.enableOwnership && animal.getOwnerId() != null
-                            && !player.getName().equals(animal.getOwnerId()) && !MoCTools.isThisPlayerAnOP(player)) {
+                            && !player.getName().equals(animal.getOwnerId().toString()) && !MoCTools.isThisPlayerAnOP(player)) {
                         continue;
                     }
                 }
@@ -72,7 +75,7 @@ public class MoCItemWhip extends MoCItem {
                     if (entitybigcat.getIsTamed()) {
                         entitybigcat.setSitting(!entitybigcat.getIsSitting());
                         i1++;
-                    } else if ((worldIn.getDifficulty().getDifficultyId() > 0) && entitybigcat.getIsAdult()) {
+                    } else if ((worldIn.getDifficulty().getId() > 0) && entitybigcat.getIsAdult()) {
                         entitybigcat.setAttackTarget(player);
                     }
                 }

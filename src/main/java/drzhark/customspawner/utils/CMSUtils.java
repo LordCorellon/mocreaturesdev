@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.customspawner.utils;
 
 import drzhark.customspawner.CustomSpawner;
@@ -19,6 +22,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraftforge.fml.common.Loader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -138,12 +142,27 @@ public class CMSUtils {
             if (CustomSpawner.debug) {
                 CustomSpawner.globalLog.logger.info("Copying spawn list data from all biomes...");
             }
+            // The following is disable to satisfy Almura 3.0's requirement of keeping MoCreatures and MoCreatures utilities but disable the spawning overwrite.
+
+            
             CustomSpawner.copyVanillaSpawnData();
             environment.initializeBiomes();
             environment.initializeEntities();
             environment.updateSettings(); // refresh settings
+            
             return true;
-            //CustomSpawner.worldEnvironmentMap.put(worldEnvironment, )
+        }
+        if (Loader.isModLoaded("terraincontrol")) {
+            // The following is disable to satisfy Almura 3.0's requirement of keeping MoCreatures and MoCreatures utilities but disable the spawning overwrite.
+            // Additionally MoCreatures doesn't utilize additional terraincontrol.cfg files as it should, thus using the biome configs spawn settings.
+
+            
+            EnvironmentSettings environment = CustomSpawner.environmentMap.get(worldProviderClass);
+            CustomSpawner.globalLog.logger.info("Initializing additional TerrainControl biomes...");
+            environment.initializeBiomes();
+            
+
+            return true;
         }
         return false;
     }
@@ -172,7 +191,7 @@ public class CMSUtils {
                 Iterator<Biome> iterator = Biome.REGISTRY.iterator();
                 while (iterator.hasNext()) {
                     Biome biome = iterator.next();
-                    environment.envLog.logger.info("Found biome " + biome.biomeName + " with spawn entries : ");
+                    environment.envLog.logger.info("Found biome " + biome.getBiomeName() + " with spawn entries : ");
                     if (entitySpawnType.getBiomeSpawnList(Biome.getIdForBiome(biome)) == null) {
                         environment.envLog.logger.info("NONE!");
                         continue;
@@ -194,7 +213,7 @@ public class CMSUtils {
         for (Map.Entry<String, ArrayList<Biome>> defaultEntry : CustomSpawner.entityDefaultSpawnBiomes.entrySet()) {
             CustomSpawner.globalLog.logger.info("Found entity " + defaultEntry.getKey() + ", printing biome list :");
             for (Biome biome : defaultEntry.getValue()) {
-                CustomSpawner.globalLog.logger.info("with biome " + biome.biomeName);
+                CustomSpawner.globalLog.logger.info("with biome " + biome.getBiomeName());
             }
             CustomSpawner.globalLog.logger.info("");
         }

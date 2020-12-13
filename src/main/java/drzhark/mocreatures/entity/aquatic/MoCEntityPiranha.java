@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCreatures;
@@ -49,7 +52,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     }
 
     /* protected Entity findPlayerToAttack() {
-         if ((this.world.getDifficulty().getDifficultyId() > 0)) {
+         if ((this.world.getDifficulty().getId() > 0)) {
              EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 12D);
              if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) {
                  return entityplayer;
@@ -60,7 +63,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
 
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float i) {
-        if (super.attackEntityFrom(damagesource, i) && (this.world.getDifficulty().getDifficultyId() > 0)) {
+        if (super.attackEntityFrom(damagesource, i) && (this.world.getDifficulty().getId() > 0)) {
             Entity entity = damagesource.getTrueSource();
             if (entity instanceof EntityLivingBase) {
                 if (this.isRidingOrBeingRiddenBy(entity)) {

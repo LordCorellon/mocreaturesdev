@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures;
 
 import drzhark.customspawner.utils.CMSUtils;
@@ -143,7 +146,7 @@ public class MoCDespawner {
             if (y >= 256) {
                 y = 255;
             }
-            i = getLightFromNeighbors(world.getChunkFromChunkCoords(x >> 4, z >> 4), x & 15, y, z & 15);
+            i = getLightFromNeighbors(world.getChunk(x >> 4, z >> 4), x & 15, y, z & 15);
         }
         if (i > lightLevel) {
             if (debug) {
@@ -163,7 +166,7 @@ public class MoCDespawner {
             if (y >= 256) {
                 y = 255;
             }
-            blockLightLevel = CMSUtils.getLightFromNeighbors(world.getChunkFromChunkCoords(x >> 4, z >> 4), x & 15, y, z & 15);
+            blockLightLevel = CMSUtils.getLightFromNeighbors(world.getChunk(x >> 4, z >> 4), x & 15, y, z & 15);
         }
         if (blockLightLevel < minDespawnLightLevel && maxDespawnLightLevel != -1) {
             //if (debug) CMSUtils.getEnvironment(world).envLog.logger.info("Denied spawn! for " + entity.getName() + blockLightLevel + " under minimum threshold of " + minDespawnLightLevel + " in dimension " + world.provider.getDimensionType().getId() + " at coords " + x + ", " + y + ", " + z);

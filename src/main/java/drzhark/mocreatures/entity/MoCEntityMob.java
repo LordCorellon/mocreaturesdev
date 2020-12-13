@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity;
 
 import drzhark.mocreatures.MoCreatures;
@@ -187,7 +190,11 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity//, IE
 
     @Override
     public boolean getCanSpawnHere() {
-        return (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && super.getCanSpawnHere());
+        boolean willSpawn = (MoCreatures.entityMap.get(this.getClass()).getFrequency() > 0 && super.getCanSpawnHere());
+        boolean debug = false;
+        if (willSpawn && debug)
+            System.out.println("Mob: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " spawned: " + willSpawn + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+        return willSpawn;
     }
 
     public boolean getCanSpawnHereMob() {

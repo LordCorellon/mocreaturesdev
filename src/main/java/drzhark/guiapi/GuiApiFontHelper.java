@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.guiapi;
 
 import de.matthiasmann.twl.Color;
@@ -17,7 +20,7 @@ import java.util.Map;
  * kinds of widgets.
  *
  * @author ShaRose
- *
+ *g
  */
 public class GuiApiFontHelper {
 

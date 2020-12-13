@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.monster;
 
 import drzhark.mocreatures.MoCTools;
@@ -138,7 +141,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
 
             if (getGolemState() != 0 && getGolemState() != 4 && isMissingCubes()) {
 
-                int freq = 21 - (getGolemState() * this.world.getDifficulty().getDifficultyId());
+                int freq = 21 - (getGolemState() * this.world.getDifficulty().getId());
                 if (getGolemState() == 1) {
                     freq = 10;
                 }
@@ -285,7 +288,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
             byte slot = (byte) getRandomCubeAdj();
             if ((slot != -1) && (slot < 23) && (myBlock != -1) && getGolemState() != 4) {
                 MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GOLEM_ATTACH, 3F);
-                int h = this.world.getDifficulty().getDifficultyId();
+                int h = this.world.getDifficulty().getId();
                 this.setHealth(getHealth() + h);
                 if (getHealth() > getMaxHealth()) {
                     this.setHealth(getMaxHealth());
@@ -377,7 +380,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         List<Integer> missingChestBlocks = missingChestCubes();
         boolean uncoveredChest = (missingChestBlocks.size() == 4);
         if (!openChest() && !uncoveredChest && getGolemState() != 1) {
-            int j = this.world.getDifficulty().getDifficultyId();
+            int j = this.world.getDifficulty().getId();
             if (!this.world.isRemote && this.rand.nextInt(j) == 0) {
                 destroyRandomGolemCube();
             } else {
@@ -385,7 +388,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
             }
 
             Entity entity = damagesource.getTrueSource();
-            if ((entity != this) && (this.world.getDifficulty().getDifficultyId() > 0) && entity instanceof EntityLivingBase) {
+            if ((entity != this) && (this.world.getDifficulty().getId() > 0) && entity instanceof EntityLivingBase) {
                 this.setAttackTarget((EntityLivingBase) entity);
                 return true;
             } else {
@@ -397,7 +400,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         }
         if (getGolemState() != 1 && super.attackEntityFrom(damagesource, i)) {
             Entity entity = damagesource.getTrueSource();
-            if ((entity != this) && (this.world.getDifficulty().getDifficultyId() > 0) && entity instanceof EntityLivingBase) {
+            if ((entity != this) && (this.world.getDifficulty().getId() > 0) && entity instanceof EntityLivingBase) {
                 this.setAttackTarget((EntityLivingBase) entity);
                 return true;
             } else {
@@ -406,7 +409,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         }
         if (getGolemState() == 1) {
             Entity entity = damagesource.getTrueSource();
-            if ((entity != this) && (this.world.getDifficulty().getDifficultyId() > 0) && entity instanceof EntityLivingBase) {
+            if ((entity != this) && (this.world.getDifficulty().getId() > 0) && entity instanceof EntityLivingBase) {
                 this.setAttackTarget((EntityLivingBase) entity);
                 return true;
             } else {

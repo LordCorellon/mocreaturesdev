@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.item;
 
 import drzhark.mocreatures.MoCConstants;
@@ -16,7 +19,7 @@ public class MoCItemRecord extends ItemRecord {
         super(name, soundEvent);
         this.setCreativeTab(MoCreatures.tabMoC);
         this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @SideOnly(Side.CLIENT)

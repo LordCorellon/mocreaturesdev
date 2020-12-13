@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures;
 
 import drzhark.guiapi.widget.WidgetSimplewindow;
@@ -13,7 +16,7 @@ import java.util.List;
 public class MoCEntityData {
 
     private EnumCreatureType typeOfCreature;
-    private SpawnListEntry spawnListEntry;
+    public SpawnListEntry spawnListEntry;
     private String entityName;
     private boolean canSpawn = true;
     private int entityId;

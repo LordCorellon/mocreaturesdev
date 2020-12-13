@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity.monster;
 
 import drzhark.mocreatures.MoCTools;
@@ -68,7 +71,7 @@ public class MoCEntityOgre extends MoCEntityMob {
             if (this.isRidingOrBeingRiddenBy(entity)) {
                 return true;
             }
-            if ((entity != this) && (this.world.getDifficulty().getDifficultyId() > 0) && entity instanceof EntityLivingBase) {
+            if ((entity != this) && (this.world.getDifficulty().getId() > 0) && entity instanceof EntityLivingBase) {
                 setAttackTarget((EntityLivingBase) entity);
                 return true;
             } else {

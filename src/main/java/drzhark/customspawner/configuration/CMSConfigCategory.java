@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.customspawner.configuration;
 
 import static drzhark.customspawner.configuration.CMSConfiguration.NEW_LINE;

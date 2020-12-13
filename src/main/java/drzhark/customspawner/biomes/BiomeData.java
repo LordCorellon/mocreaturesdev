@@ -1,7 +1,14 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.customspawner.biomes;
 
 import net.minecraft.world.biome.Biome;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import java.lang.reflect.Field;
 
 import java.util.Set;
 
@@ -24,7 +31,21 @@ public class BiomeData {
     }
 
     public String getBiomeName() {
-        return this.biome.biomeName;
+        String biomeName = "";
+            MinecraftServer m = FMLCommonHandler.instance().getMinecraftServerInstance();
+            if (m.isDedicatedServer()) {
+                Field f = ObfuscationReflectionHelper.findField(Biome.class, "field_76791_y");
+                f.setAccessible(true);
+                try {
+                    biomeName = (String) f.get(biome);
+                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalAccessException e) {
+                    }
+                return biomeName;
+            } else {
+                return this.biome.getBiomeName();
+            }
+        //return this.biome.getBiomeName();
     }
 
     public Biome getBiome() {

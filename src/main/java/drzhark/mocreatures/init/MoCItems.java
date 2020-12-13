@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.init;
 
 import drzhark.mocreatures.MoCConstants;
@@ -326,12 +329,13 @@ public class MoCItems {
             final IForgeRegistry<Item> registry = event.getRegistry();
 
             for (int i = 0; i < 16; i++) {
-                String s = EnumDyeColor.byMetadata(i).getUnlocalizedName().toLowerCase();
+                String s = EnumDyeColor.byMetadata(i).getTranslationKey().toLowerCase();
                 if (s.equalsIgnoreCase("lightBlue")) s = "light_blue";
                 kittybed[i] = new MoCItemKittyBed("kittybed_" + s, i);
                 registry.register(kittybed[i]);
                 if (!MoCreatures.isServer()) {
-                    ModelLoader.setCustomModelResourceLocation(kittybed[i], 0, new ModelResourceLocation(MoCConstants.MOD_PREFIX + kittybed[i].getUnlocalizedName().replace("item.",  ""), "inventory"));
+                    ModelLoader.setCustomModelResourceLocation(kittybed[i], 0,
+                        new ModelResourceLocation(MoCConstants.MOD_PREFIX + kittybed[i].getTranslationKey().replace("item.",  ""), "inventory"));
                 }
             }
 
@@ -339,7 +343,8 @@ public class MoCItems {
                 registry.register(item);
                 ITEMS.add(item);
                 if (!MoCreatures.isServer()) {
-                    ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(MoCConstants.MOD_PREFIX + item.getUnlocalizedName().replace("item.",  ""), "inventory"));
+                    ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(MoCConstants.MOD_PREFIX + item.getTranslationKey().replace("item.",
+                        ""), "inventory"));
                 }
                 if (item instanceof MoCItemEgg) {
                     for (int i = 0; i < 91; i++) {

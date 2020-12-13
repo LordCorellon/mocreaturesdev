@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.customspawner;
 
 import drzhark.customspawner.command.CommandCMS;
@@ -33,6 +36,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.Chunk.EnumCreateEntityType;
 import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -69,6 +73,7 @@ public final class CustomSpawner {
     public static boolean forceDespawns = false;
     public static boolean debug = false;
     public static boolean doMobSpawning = false;
+    public static boolean eventListeners = true;
     public static File ROOT;
     public static CMSLog globalLog;
 
@@ -115,13 +120,8 @@ public final class CustomSpawner {
         MinecraftForge.TERRAIN_GEN_BUS.register(new EventHooks()); // register our event subscriptions
         MinecraftForge.EVENT_BUS.register(new EventHooks());
         debug = CMSGlobalConfig.get(CATEGORY_GLOBAL_SETTINGS, "debug", false, "Turns on global debug logging.").getBoolean(false);
-        doMobSpawning =
-                CMSGlobalConfig
-                        .get(CATEGORY_GLOBAL_SETTINGS,
-                                "doMobSpawning",
-                                false,
-                                "If false, turns off vanilla spawner completely to provide better compatibility with CMS. Note: if you remove CMS, set back to true and load up game at least once so it reenables vanilla spawner. You can also type /gamerule doMobSpawning true")
-                        .getBoolean(false);
+        eventListeners = CMSGlobalConfig.get(CATEGORY_GLOBAL_SETTINGS, "eventListeners", true, "Turns on global Event Listeners.").getBoolean(true);
+        doMobSpawning = CMSGlobalConfig.get(CATEGORY_GLOBAL_SETTINGS,"doMobSpawning",false,"If false, turns off vanilla spawner completely to provide better compatibility with CMS. Note: if you remove CMS, set back to true and load up game at least once so it reenables vanilla spawner. You can also type /gamerule doMobSpawning true").getBoolean(false);
         CMSGlobalConfig.save();
         if (debug) {
             globalLog.logger.info("Initializing CustomSpawner Config File at " + event.getSuggestedConfigurationFile().getParent() + "Global.cfg");
@@ -349,7 +349,7 @@ public final class CustomSpawner {
                                                 CMSUtils.getEnvironment(world).envLog.logSpawn(CMSUtils.getEnvironment(world),
                                                         entitySpawnType.name(), world.getBiome(new BlockPos(
                                                                 (chunkX * 16) + 16, 0,
-                                                                (chunkZ * 16) + 16)).biomeName, entityData
+                                                                (chunkZ * 16) + 16)).getBiomeName(), entityData
                                                                 .getEntityName(), MathHelper.floor(spawnX), MathHelper
                                                                 .floor(spawnY), MathHelper.floor(spawnZ), spawnsLeft,
                                                         spawnlistentry);
@@ -391,13 +391,13 @@ public final class CustomSpawner {
         if (minLightLevel == -1 && maxLightLevel == -1) {
             return true;
         }
-        if (entity.isCreatureType(EnumCreatureType.MONSTER, false)) {
+        /*if (entity.isCreatureType(EnumCreatureType.MONSTER, false)) {
             return true;
         } else if (entity.isCreatureType(EnumCreatureType.AMBIENT, false)) {
             return true;
         } else if (!entity.isCreatureType(EnumCreatureType.CREATURE, false)) {
             return true;
-        }
+        }*/
         int x = MathHelper.floor(entity.posX);
         int y = MathHelper.floor(entity.getEntityBoundingBox().minY);
         int z = MathHelper.floor(entity.posZ);
@@ -406,7 +406,7 @@ public final class CustomSpawner {
             if (y >= 256) {
                 y = 255;
             }
-            blockLightLevel = CMSUtils.getLightFromNeighbors(world.getChunkFromChunkCoords(x >> 4, z >> 4), x & 15, y, z & 15);
+            blockLightLevel = CMSUtils.getLightFromNeighbors(world.getChunk(x >> 4, z >> 4), x & 15, y, z & 15);
         }
         if (blockLightLevel < minLightLevel && minLightLevel != -1) {
             if (debug) {
@@ -543,7 +543,7 @@ public final class CustomSpawner {
                     if (spawnEntry.entityClass == entityData.getEntityClass()) {
                         if (debug) {
                             globalLog.logger.info("updateSpawnListEntry " + entityData.getEntityClass() + " to " + entityData.getFrequency() + ":"
-                                    + entityData.getMinSpawn() + ":" + entityData.getMaxSpawn() + " in biome " + biomeList.get(i).biomeName);
+                                    + entityData.getMinSpawn() + ":" + entityData.getMaxSpawn() + " in biome " + biomeList.get(i).getBiomeName());
                         }
                         spawnEntry.itemWeight = entityData.getFrequency();
                         spawnEntry.minGroupCount = entityData.getMinSpawn();
@@ -606,7 +606,7 @@ public final class CustomSpawner {
         }
 
         boolean flag = blockstate1.getBlock() != Blocks.BEDROCK && blockstate1.getBlock() != Blocks.BARRIER;
-        boolean result = flag && !blockstate.isNormalCube() && !blockstate.getMaterial().isLiquid() && !chunk.getBlockState(pos.up()).isNormalCube();
+        boolean result = flag && !blockstate.isNormalCube() && !blockstate.getMaterial().isLiquid() && !chunk.getBlockState(pos.up()).isNormalCube() && chunk.getTileEntity(pos, EnumCreateEntityType.IMMEDIATE) == null && chunk.getTileEntity(pos.up(), EnumCreateEntityType.IMMEDIATE) == null; //Check for Tile Entities
         return result;
     }
 
@@ -728,7 +728,7 @@ public final class CustomSpawner {
                                 CMSUtils.getEnvironment(world).envLog.logger.info("[WorldGen spawned " + entityliving.getName()
                                         + " at " + entityliving.getPosition() + " with CREATURE:" + spawnlistentry.itemWeight + ":"
                                         + spawnlistentry.minGroupCount + ":" + spawnlistentry.maxGroupCount + ":"
-                                        + ForgeEventFactory.getMaxSpawnPackSize(entityliving) + " in biome " + par1Biome.biomeName
+                                        + ForgeEventFactory.getMaxSpawnPackSize(entityliving) + " in biome " + par1Biome.getBiomeName()
                                         + "]");
                             }
                             entityLivingData = creatureSpecificInit(entityliving, world, pos, entityLivingData);
@@ -761,7 +761,7 @@ public final class CustomSpawner {
     public static Chunk getLoadedChunkWithoutMarkingActive(ChunkProviderServer chunkProviderServer, int x, int z)
     {
         long i = ChunkPos.asLong(x, z);
-        Chunk chunk = chunkProviderServer.id2ChunkMap.get(i);
+        Chunk chunk = chunkProviderServer.loadedChunks.get(i);
         return chunk;
     }
 

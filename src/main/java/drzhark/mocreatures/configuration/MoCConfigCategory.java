@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.configuration;
 
 import static drzhark.mocreatures.configuration.MoCConfiguration.NEW_LINE;

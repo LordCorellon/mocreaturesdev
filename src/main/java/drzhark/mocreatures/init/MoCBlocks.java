@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.init;
 
 import com.google.common.base.Preconditions;
@@ -101,7 +104,7 @@ public class MoCBlocks {
                 registry.register(item.setRegistryName(registryName));
                 ITEM_BLOCKS.add(item);
                 if (!MoCreatures.isServer()) {
-                    final String name = item.getUnlocalizedName().replace("tile.", "").replace("MoC", "").toLowerCase();
+                    final String name = item.getTranslationKey().replace("tile.", "").replace("MoC", "").toLowerCase();
                     System.out.println("registering custom location " + name);
                     ModelBakery.registerItemVariants(item, new ResourceLocation("mocreatures:wyvern_" + name));
                     ModelBakery.registerItemVariants(item, new ResourceLocation("mocreatures:ogre_" + name));

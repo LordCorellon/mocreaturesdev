@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 package drzhark.mocreatures.entity;
 
 import drzhark.mocreatures.MoCTools;
@@ -427,18 +430,27 @@ public abstract class MoCEntityAmbient extends EntityAnimal implements IMoCEntit
 
     @Override
     public boolean getCanSpawnHere() {
+        boolean debug = false;
         if (MoCreatures.entityMap.get(this.getClass()).getFrequency() <= 0) {
             return false;
         }
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
 
         String s = MoCTools.biomeName(this.world, pos);
-
+        boolean willSpawn = false;
         if (s.equals("Jungle") || s.equals("JungleHills")) {
-            return getCanSpawnHereJungle();
+            willSpawn = getCanSpawnHereJungle();
+            if (willSpawn && debug)
+                System.out.println("Ambient 1: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+
+            return willSpawn;
         }
 
-        return super.getCanSpawnHere();
+        willSpawn = super.getCanSpawnHere();
+        if (willSpawn && debug)
+            System.out.println("Ambient 2: " + this.getName() + " at: " + this.getPosition() + " State: " + this.world.getBlockState(this.getPosition()).toString() + " biome: " + this.world.getBiome(this.getPosition()).getBiomeName());
+
+        return willSpawn;
     }
 
     public boolean getCanSpawnHereJungle() {

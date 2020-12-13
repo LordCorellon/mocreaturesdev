@@ -1,3 +1,6 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3
+ */
 // TODO
 // move model to the front (done)
 // fix mirror issues (done)
